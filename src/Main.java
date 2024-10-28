@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Main {
 
     /**
@@ -50,7 +52,7 @@ public class Main {
 
     public static int medianHouseholdEstimateKgPerCapitaPerYear(int[] householdEstimatesKgPerCapitaPerYear)
     {
-        return -1;
+       return -1;
     }
 
     public static int medianHouseholdEstimateTonnesPerYear(int[] householdEstimatesTonnesPerYear)
@@ -120,7 +122,7 @@ public class Main {
     /**
      * Max Methods
      */
-    
+
     public static int maxTotalWasteKgPerCapitaPerYear(int[] totalWasteKgPerCapitaPerYear)
     {
         return -1;
@@ -160,23 +162,82 @@ public class Main {
      * Misc Methods
      */
 
-    public static String getCountryTotalWastePerYear(String country, String[] countries, int[] totalWasteKgPerCapitaPerYear)
+    public static int getCountryTotalWastePerYear(String country, String[] countries, int[] totalWasteKgPerCapitaPerYear)
     {
-        return "";
+        int result = 0;
+        int countryindex = 0;
+        for(int i = 0; i<countries.length; i++){
+            if(countries[i].equals(country)){
+                countryindex = i;
+            }
+
+        }
+        result = totalWasteKgPerCapitaPerYear[countryindex];
+
+        return result;
     }
 
     public static String getCountryWithMostWastePerCapita(String[] countries, int[] totalWasteKgPerCapitaPerYear)
     {
-        return "";
+        int weight = totalWasteKgPerCapitaPerYear[0];
+        int weightindex = 0;
+        for(int i = 0; i< countries.length;i++){
+            if(weight < totalWasteKgPerCapitaPerYear[i]){
+                weight = totalWasteKgPerCapitaPerYear[i];
+                weightindex = i;
+            }
+
+        }
+        return countries[weightindex];
     }
 
     public static String[] getCountriesWithHighestPovertyPercentage(String[] countries, double[] percentagesShareInPoverty)
     {
-        return new String[0];
+        int position = 0;
+        int numhighpoverty = 0;
+        double poverty = 0.0;
+        double maximum = 99.99;
+        String[] tempcountries = new String[countries.length];
+        for(int i = 0; i<percentagesShareInPoverty.length;i++){
+            if (percentagesShareInPoverty[i] == 99.99){
+                poverty = percentagesShareInPoverty[i];
+                maximum = percentagesShareInPoverty[i];
+                numhighpoverty++;
+                tempcountries[position] = countries[i];
+                position++;
+            }
+
+        }
+        System.out.println(Arrays.toString(tempcountries));
+        String [] highpoverty = new String[numhighpoverty];
+        for(int j = 0; j< highpoverty.length; j++){
+            highpoverty[j] = tempcountries[j];
+        }
+
+        return highpoverty;
     }
 
     public static String[] getCountriesWithHighConfidence(String[] countries, String[] confidences)
     {
-        return new String[0];
+        String [] temphighconfidence = new String[countries.length];
+        int numhighconfidence = 0;
+        int position  =0;
+        for(int i = 0; i < temphighconfidence.length; i++){
+            if (confidences[i].equals("High Confidence")) {
+                temphighconfidence[position] = countries[i];
+                numhighconfidence++;
+                position++;
+            }
+
+        }
+        System.out.println(Arrays.toString(temphighconfidence));
+        String [] highconfidence = new String[numhighconfidence];
+        for(int j = 0; j< highconfidence.length; j++){
+            highconfidence[j] = temphighconfidence[j];
+        }
+        System.out.println(Arrays.toString(highconfidence));
+
+
+        return highconfidence;
     }
 }
